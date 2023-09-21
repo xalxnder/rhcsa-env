@@ -1,0 +1,33 @@
+---
+- name: Configure Repos Host
+  hosts: repos
+  tasks:
+    - name: Configure Hostname
+      ansible.builtin.hostname:
+        name: repos.example.com
+
+    - name: Configure Host File
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        block: |
+          node1.example.com 192.168.55.201
+          node2.example.com 192.168.55.202
+
+    - name: Break Http Port
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: 'Listen 80'
+        line: 'Listen 82'
+
+    - name: Restart Http
+      ansible.builtin.systemd_service:
+        name: httpd
+        state: reloaded
+
+    - name: Set Welcome Message
+      ansible.builtin.copy:
+        src: ../scripts/welcome_repos.sh
+        dest: /etc/profile.d/welcome_repos.sh
+        owner: vagrant
+        group: vagrant
+        mode: '0755'

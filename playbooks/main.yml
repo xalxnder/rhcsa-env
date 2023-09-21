@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_playbook: node1.yml
+- ansible.builtin.import_playbook: node2.yml
+- ansible.builtin.import_playbook: repos.yml
+

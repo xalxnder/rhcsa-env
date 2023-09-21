@@ -1,0 +1,49 @@
+---
+- name: Configure Node1
+  hosts: node1
+  tasks:
+    - name: Configure Hostname
+      ansible.builtin.hostname:
+        name: node1.example.com
+
+    - name: Configure Host File
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        block: |
+          node2.example.com 192.168.55.202
+          repos.example.com 192.168.55.200
+
+    - name: Create File Used to Practice Grepping
+      ansible.builtin.copy:
+        src: ../test_files/test.txt
+        dest: /tmp/test.txt
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
+
+    - name: Create Dummy Directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - /tmp/test
+        - /etc/rhcsa
+
+    - name: Create Files Used To Practice Find Command
+      ansible.builtin.copy:
+        content: " "
+        dest: "{{ item }}"
+        force: false
+      with_items:
+        - /tmp/games.pdf
+        - /var/log/log.pdf
+        - /tmp/test/test.pdf
+        - /etc/rhcsa/user.pdf
+
+    - name: Set Welcome Message
+      ansible.builtin.copy:
+        src: ../scripts/welcome.sh
+        dest: /etc/profile.d/welcome.sh
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
