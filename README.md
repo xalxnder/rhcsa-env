@@ -2,7 +2,7 @@
 
 Though I've already passed the RHCSA, I thought It would be cool to automate the creation of a tesiting enviornment with Vagrant and Ansible !
 
-####Prequisites
+#### Prequisites
 1. Must have Ansible, Vagrant, and Virtual Box installed
 4. x86_64 Architecture 
 
