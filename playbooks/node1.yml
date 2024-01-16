@@ -10,8 +10,8 @@
       ansible.builtin.blockinfile:
         path: /etc/hosts
         block: |
-          node2.example.com 192.168.55.202
-          repos.example.com 192.168.55.200
+          192.168.55.202 node2.example.com
+          192.168.55.200 repos.example.com
 
     - name: Create File Used to Practice Grepping
       ansible.builtin.copy:
